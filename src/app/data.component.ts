@@ -1,5 +1,5 @@
 import { ApplicationRef, Component, Inject, Injectable, PLATFORM_ID } from "@angular/core";
-import { delay, exhaustMap, first, interval, merge, Observable, of, tap } from "rxjs";
+import { delay, exhaustMap, first, interval, Observable, of, startWith, tap } from "rxjs";
 import { AsyncPipe, isPlatformBrowser } from "@angular/common";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
@@ -38,10 +38,9 @@ export class DataComponent {
               // https://rxjs.dev/api/index/function/mergeMap
               // Depending on how do you want the outer (clock) and inner (data)
               // observables. Check the marble diagrams of docs for more info
-              (i) => merge(
-                of(null), // 👈 Indicate right now we're about to fetch
-                this.dataService.getData(i) // and fetch
-              ),
+              (i) => this.dataService.getData(i).pipe(
+                startWith(null) // 👈 Emit null instantly to indicate loading
+              )
             ),
           )
         }
@@ -52,10 +51,9 @@ export class DataComponent {
 @Injectable({ providedIn: "root" })
 class DataService {
   clock(): Observable<number> {
-    return merge(
-      of(-1), // Simulate an initial value,
-      interval(2000) // Simulate live updates every 2s,
-    );
+    return interval(2000).pipe(
+      startWith(-1) // Emit initially -1
+    )
   }
 
   getData(i: number): Observable<string> {
