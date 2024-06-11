@@ -31,13 +31,13 @@ export class DataComponent {
         // 👇 On server we want to render and respond. Live updates only on browser
         if (isPlatformBrowser(this.platformId)) {
           this.data$ = this.dataService.clock().pipe(
-            // This can be also:
-            // https://rxjs.dev/api/index/function/concatMap
-            // https://rxjs.dev/api/index/function/switchMap
-            // https://rxjs.dev/api/index/function/mergeMap
-            // Depending on how do you want the outer (clock) and inner (data)
-            // observables. Check the marble diagrams of docs for more info
             exhaustMap(
+              // 👆 This could be also:
+              // https://rxjs.dev/api/index/function/concatMap
+              // https://rxjs.dev/api/index/function/switchMap
+              // https://rxjs.dev/api/index/function/mergeMap
+              // Depending on how do you want the outer (clock) and inner (data)
+              // observables. Check the marble diagrams of docs for more info
               (i) => merge(
                 of(null), // 👈 Indicate right now we're about to fetch
                 this.dataService.getData(i) // and fetch
