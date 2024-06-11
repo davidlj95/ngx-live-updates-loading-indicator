@@ -1,4 +1,12 @@
-# LiveUpdatesLoadingIndicator
+# Live updates with loading indicator
+
+This is a proof of concept (PoC) to display a loading indicator when data is being fetched asynchronously and data fetches may happen multiple times. Kind of live updates but with different observables for when data needs to be fetched and the actual data fetching observable.
+
+Takes into account server side rendering & hydration.
+
+Created as response to an [`r/Angular2` Reddit post](https://www.reddit.com/r/Angular2/comments/1ddd1o0/can_an_observable_send_null_while_it_is_executing/)
+
+## About
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
 
