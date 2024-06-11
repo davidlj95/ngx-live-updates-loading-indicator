@@ -8,6 +8,16 @@ Created as response to an [`r/Angular2` Reddit post](https://www.reddit.com/r/An
 
 ## About
 
+Command used to generate this project:
+
+```shell
+pnpm dlx @angular/cli new \
+  --package-manager=pnpm \
+  --inline-style --inline-template --style css \
+  --ssr --skip-tests \
+  live-updates-loading-indicator
+```
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
 
 ## Development server
